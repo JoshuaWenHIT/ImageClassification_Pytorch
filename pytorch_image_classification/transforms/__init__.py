@@ -46,6 +46,18 @@ def _get_dataset_stats(
         # RGB
         mean = [0.344, 0.380, 0.408]
         std = [0.203, 0.137, 0.116]
+    elif name == 'Google-China':
+        # RGB
+        mean = [0.354, 0.379, 0.366]
+        std = [0.177, 0.165, 0.165]
+    elif name == 'RSSCN7':
+        # RGB
+        mean = [0.373, 0.384, 0.343]
+        std = [0.199, 0.180, 0.183]
+    elif name == 'RS19-WHU':
+        # RGB
+        mean = [0.426, 0.448, 0.402]
+        std = [0.242, 0.219, 0.229]
     else:
         raise ValueError()
     return mean, std
