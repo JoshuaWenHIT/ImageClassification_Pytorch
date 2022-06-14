@@ -1,10 +1,10 @@
 device: cuda
 dataset:
-  name: EuroSAT
-  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/EuroSAT
-  image_size: 64
+  name: Google-China
+  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/Google-China
+  image_size: 200
   n_channels: 3
-  n_classes: 10
+  n_classes: 12
 model:
   type: custom
   name: vgg
@@ -24,7 +24,7 @@ train:
   momentum: 0.9
   nesterov: True
   weight_decay: 5e-4
-  output_dir: experiments/EuroSAT/vgg16/exp00
+  output_dir: /home/joshuawen/Downloads/Google-China/vgg16/exp08
   log_period: 10
   checkpoint_period: 10
   use_tensorboard: True
@@ -39,6 +39,10 @@ validation:
     num_workers: 8
     drop_last: False
     pin_memory: True
+test:
+  output_dir: /home/joshuawen/Downloads/Google-China/vgg16/exp08/checkpoint/
+  checkpoint: /home/joshuawen/Downloads/Google-China/vgg16/exp08/checkpoint/checkpoint_00120.pth
+  batch_size: 64
 scheduler:
   epochs: 90
   type: multistep

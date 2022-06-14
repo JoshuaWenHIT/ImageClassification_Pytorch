@@ -1,4 +1,11 @@
 import torch
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.metrics import confusion_matrix
+from sklearn.preprocessing import label_binarize
+from sklearn.metrics import classification_report
+from sklearn.metrics import roc_curve, auc, roc_auc_score
 
 
 def compute_accuracy(config, outputs, targets, augmentation, topk=(1, )):
@@ -48,3 +55,71 @@ def accuracy(outputs, targets, topk=(1, )):
             correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(1 / batch_size))
     return res
+
+
+class SklearnTools:
+    def __init__(self, dataset, gt_labels, pred_labels):
+        self.dataset = dataset
+        self.class_names = self.dataset.class_to_idx
+        self.class_number = len(self.class_names)
+        self.gt_labels = gt_labels
+        self.pred_labels = pred_labels
+        self.colors = []
+        self.gt_index = []
+        self.gt_index_and_class = []
+
+    def plot_confusion_matrix(self, config):
+        for k, v in self.class_names.items():
+            self.gt_index.append(str(v + 1))
+            self.gt_index_and_class.append(str(v + 1) + '-' + k)
+        matrix = confusion_matrix(self.gt_labels, self.pred_labels)
+        plt.matshow(matrix)
+        plt.colorbar()
+        plt.title('Confusion Matrix (Dataset: %s | Model: %s)' % (config.dataset.name, config.model.name))
+        plt.xlabel('Prediction')
+        plt.ylabel('Ground Truth')
+        plt.xticks(np.arange(matrix.shape[1]), self.gt_index)
+        plt.yticks(np.arange(matrix.shape[1]), self.gt_index_and_class)
+        plt.show()
+
+    def plot_roc_curve(self, config, probs):
+        for i in range(self.class_number):
+            self.colors.append(random_color())
+        gt_labels_one_hot = label_binarize(self.gt_labels, classes=np.arange(self.class_number))
+        fpr, tpr, roc_auc = dict(), dict(), dict()
+        plt.figure(figsize=(8, 8))
+        for i in range(self.class_number):
+            fpr[i], tpr[i], threshold = roc_curve(gt_labels_one_hot[:, i], probs[:, i])
+            roc_auc[i] = auc(fpr[i], tpr[i])
+
+            plt.plot(fpr[i], tpr[i], color=self.colors[i],
+                     label='%s (area = %0.4f)' % (self.gt_index_and_class[i], roc_auc[i]))
+        score = self.get_roc_auc_score(gt_labels_one_hot, probs)
+        lw = 2
+        plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+        plt.xlim([0.0, 1.0])
+        plt.ylim([0.0, 1.05])
+        plt.title('ROC Curve (Dataset: %s | Model: %s | AUC=%.4f)' % (config.dataset.name, config.model.name, score))
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.legend(loc="lower right")
+        plt.show()
+
+    def get_classification_report(self, digits=4):
+        report = classification_report(self.gt_labels, self.pred_labels,
+                                       target_names=self.class_names.keys(), digits=digits)
+        return "Classification Report: \n%s" % report
+
+    @staticmethod
+    def get_roc_auc_score(gt_labels_one_hot, probs, multi_class='ovr'):
+        return roc_auc_score(gt_labels_one_hot, probs, multi_class=multi_class)
+
+
+def random_color():
+    import random
+    color_arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9',
+                 'A', 'B', 'C', 'D', 'E', 'F']
+    color = ''
+    for i in range(6):
+        color += color_arr[random.randint(1, 14)]
+    return '#' + color
