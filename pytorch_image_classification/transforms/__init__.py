@@ -58,6 +58,33 @@ def _get_dataset_stats(
         # RGB
         mean = [0.426, 0.448, 0.402]
         std = [0.242, 0.219, 0.229]
+    elif name == 'AID':
+        # RGB
+        mean = [0.398, 0.409, 0.369]
+        std = [0.217, 0.194, 0.192]
+    elif name == 'UCMerced_LandUse':
+        # RGB
+        mean = [0.484, 0.49, 0.451]
+        std = [0.218, 0.202, 0.196]
+    elif name == 'RSD46-WHU':
+        # RGB
+        mean = [0.392, 0.417, 0.391]
+        std = [0.241, 0.225, 0.226]
+        # Single Channel
+        # mean = []
+        # std = []
+    elif name == 'PatternNet':
+        # RGB
+        mean = [0.359, 0.36, 0.319]
+        std = [0.196, 0.185, 0.179]
+    elif name == 'RSI-CB128':
+        # RGB
+        mean = [0.411, 0.418, 0.379]
+        std = [0.209, 0.194, 0.197]
+    elif name == 'RSI-CB256':
+        # RGB
+        mean = [0.424, 0.432, 0.393]
+        std = [0.237, 0.218, 0.217]
     else:
         raise ValueError()
     return mean, std

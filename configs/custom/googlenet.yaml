@@ -1,30 +1,25 @@
 device: cuda
 dataset:
-  name: RSSCN7
-  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/RSSCN7
-  image_size: 400
+  name: Google-China
+  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/Google-China
+  image_size: 200
   n_channels: 3
-  n_classes: 7
+  n_classes: 12
 model:
   type: custom
-  name: vgg
-  init_mode: kaiming_fan_out
-  vgg:
-    n_channels: [64, 128, 256, 512, 512]
-    n_layers: [2, 2, 3, 3, 3]
-    use_bn: True
+  name: googlenet
 train:
   resume: False
   seed: 0
   precision: O0
-  batch_size: 256
-  subdivision: 8
+  batch_size: 16
+  subdivision: 1
   optimizer: sgd
-  base_lr: 0.01
+  base_lr: 0.1
   momentum: 0.9
   nesterov: True
-  weight_decay: 5e-4
-  output_dir: /home/joshuawen/Downloads/Google-China/vgg16/exp08
+  weight_decay: 1e-4
+  output_dir: experiments/Google-China/googlenet/exp00
   log_period: 10
   checkpoint_period: 10
   use_tensorboard: True
@@ -34,15 +29,15 @@ train:
     drop_last: True
     pin_memory: True
 validation:
-  batch_size: 256
+  batch_size: 16
   dataloader:
     num_workers: 8
     drop_last: False
     pin_memory: True
 test:
-  output_dir: /home/joshuawen/Downloads/Google-China/vgg16/exp08/checkpoint/
+  output_dir: /home/joshuawen/Downloads/Google-China/resnet34/exp00
   checkpoint: /home/joshuawen/Downloads/RSSCN7/vgg16/exp00/checkpoint_00120.pth
-  batch_size: 16
+  batch_size: 64
 scheduler:
   epochs: 90
   type: multistep

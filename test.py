@@ -5,15 +5,10 @@ import time
 import numpy as np
 import torch
 import torch.nn.functional as F
+from torch.utils.data import DataLoader
 import torchvision
 import tqdm
 
-from sklearn.metrics import classification_report
-from sklearn.metrics import roc_curve, auc, roc_auc_score
-from sklearn.preprocessing import label_binarize
-
-from torch.utils.data import DataLoader
-import matplotlib.pyplot as plt
 
 from pytorch_image_classification import (
     apply_data_parallel_wrapper,
@@ -93,14 +88,11 @@ def evaluate(config, model, test_dataset, test_loader, loss_func, logger):
 
     predicted_labels = np.concatenate(pred_label_all)
     gt_labels = np.concatenate(gt_labels)
-    gt_labels_one_hot = label_binarize(gt_labels, classes=np.arange(12))
 
     tools = SklearnTools(test_dataset, gt_labels, predicted_labels)
     tools.plot_confusion_matrix(config)
     tools.plot_roc_curve(config, probs)
     logger.info(tools.get_classification_report())
-
-    print(roc_auc_score(gt_labels_one_hot, probs, multi_class='ovr'))
 
     return preds, probs, predicted_labels, loss_meter.avg, accuracy
 
@@ -118,19 +110,11 @@ def main():
 
     model = create_model(config)
     model = apply_data_parallel_wrapper(config, model)
-    checkpoint = torch.load('/home/joshuawen/Downloads/Google-China/vgg16/exp08/checkpoint_00120.pth')
+    checkpoint = torch.load(config.test.checkpoint)
     model.load_state_dict(checkpoint['model'])
-    # checkpointer = Checkpointer(model,
-    #                             # checkpointables=checkpoint,
-    #                             # output_dir=str(output_dir),
-    #                             logger=logger,
-    #                             distributed_rank=get_rank())
-    # checkpointer.load(config.test.checkpoint)
-
-    # test_loader = create_dataloader(config, is_train=False)
     test_transform = create_transform(config, is_train=False)
     test_dataset = torchvision.datasets.ImageFolder(
-        '/media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/Google-China/val',
+        config.dataset.dataset_dir + '/val',
         transform=test_transform)
     print(test_dataset.class_to_idx)
 

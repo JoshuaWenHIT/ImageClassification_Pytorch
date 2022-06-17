@@ -11,9 +11,10 @@ from torch.utils.data import Dataset
 
 from pytorch_image_classification import create_transform
 
-# DATASETS_ROOT = "../../datasets/"
+# DATASETS_ROOT = "/root/autodl-tmp"
 DATASETS_ROOT = "/media/joshuawen/Joshua_SSD3/Datasets/RGB/classification"
-CUSTOM_DATASETS = ['RS19-WHU', 'RSSCN7', 'Google-China', 'EuroSAT']
+CUSTOM_DATASETS = ['RS19-WHU', 'RSSCN7', 'Google-China', 'EuroSAT', 'AID',
+                   'UCMerced_LandUse', 'RSD46-WHU', 'PatternNet', 'RSI-CB128', 'RSI-CB256']
 
 
 class SubsetDataset(Dataset):

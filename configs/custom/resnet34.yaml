@@ -1,10 +1,10 @@
 device: cuda
 dataset:
-  name: Google-China
-  dataset_dir: /root/autodl-tmp/Google-China
-  image_size: 200
+  name: RSSCN7
+  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/RSSCN7
+  image_size: 400
   n_channels: 3
-  n_classes: 12
+  n_classes: 7
 model:
   type: custom
   name: resnet
@@ -39,6 +39,10 @@ validation:
     num_workers: 8
     drop_last: False
     pin_memory: True
+test:
+  output_dir: /home/joshuawen/Downloads/Google-China/resnet34/exp00
+  checkpoint: /home/joshuawen/Downloads/RSSCN7/vgg16/exp00/checkpoint_00120.pth
+  batch_size: 64
 scheduler:
   epochs: 90
   type: multistep
