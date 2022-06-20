@@ -1,3 +1,10 @@
+#
+#  vgg.py
+#  custom
+#
+#  Created by Joshua Wen on 2022/06/08.
+#  Copyright © 2022 Joshua Wen. All rights reserved.
+#
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

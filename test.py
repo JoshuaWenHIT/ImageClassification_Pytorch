@@ -1,3 +1,10 @@
+#
+#  test.py
+#  ./
+#
+#  Created by Joshua Wen on 2022/06/20.
+#  Copyright © 2022 Joshua Wen. All rights reserved.
+#
 import argparse
 import pathlib
 import time
@@ -114,7 +121,7 @@ def main():
     model.load_state_dict(checkpoint['model'])
     test_transform = create_transform(config, is_train=False)
     test_dataset = torchvision.datasets.ImageFolder(
-        config.dataset.dataset_dir + '/val',
+        config.dataset.dataset_dir + '/train',
         transform=test_transform)
     print(test_dataset.class_to_idx)
 

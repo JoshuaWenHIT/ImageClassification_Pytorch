@@ -36,8 +36,8 @@ validation:
     pin_memory: True
 test:
   output_dir: /home/joshuawen/Downloads/Google-China/resnet34/exp00
-  checkpoint: /home/joshuawen/Downloads/RSSCN7/vgg16/exp00/checkpoint_00120.pth
-  batch_size: 64
+  checkpoint: /home/joshuawen/Downloads/Google-China/googlenet/exp00/checkpoint_00120.pth
+  batch_size: 128
 scheduler:
   epochs: 90
   type: multistep
