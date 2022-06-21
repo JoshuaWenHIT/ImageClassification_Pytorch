@@ -99,7 +99,7 @@ def evaluate(config, model, test_dataset, test_loader, loss_func, logger):
     tools = SklearnTools(test_dataset, gt_labels, predicted_labels)
     tools.plot_confusion_matrix(config)
     tools.plot_roc_curve(config, probs)
-    logger.info(tools.get_classification_report())
+    logger.info(tools.get_classification_report(config))
 
     return preds, probs, predicted_labels, loss_meter.avg, accuracy
 

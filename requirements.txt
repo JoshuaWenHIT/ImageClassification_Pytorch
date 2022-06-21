@@ -13,3 +13,4 @@ tensorboard~=1.15.0
 pillow~=9.1.1
 scikit-learn~=1.1.1
 matplotlib~=3.5.2
+pandas~=1.4.2

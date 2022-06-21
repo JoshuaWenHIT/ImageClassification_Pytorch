@@ -112,9 +112,13 @@ class SklearnTools:
         plt.legend(loc="lower right")
         plt.show()
 
-    def get_classification_report(self, digits=4):
+    def get_classification_report(self, config, digits=4, is_excel=True):
         report = classification_report(self.gt_labels, self.pred_labels,
                                        target_names=self.class_names.keys(), digits=digits)
+        if is_excel:
+            report_dict = classification_report(self.gt_labels, self.pred_labels,
+                                                output_dict=True, target_names=self.class_names.keys(), digits=digits)
+            report_to_excel(report_dict, config)
         return "Classification Report: \n%s" % report
 
     @staticmethod
@@ -130,3 +134,9 @@ def random_color():
     for i in range(6):
         color += color_arr[random.randint(1, 14)]
     return '#' + color
+
+
+def report_to_excel(report, config):
+    import pandas
+    df = pandas.DataFrame(report).transpose()
+    df.to_excel(config.test.output_dir + '/%s+%s.xlsx' % (config.dataset.name, config.model.name), sheet_name='Sheet1')

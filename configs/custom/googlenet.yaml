@@ -35,7 +35,7 @@ validation:
     drop_last: False
     pin_memory: True
 test:
-  output_dir: /home/joshuawen/Downloads/Google-China/resnet34/exp00
+  output_dir: ~/Downloads
   checkpoint: /home/joshuawen/Downloads/Google-China/googlenet/exp00/checkpoint_00120.pth
   batch_size: 128
 scheduler:
