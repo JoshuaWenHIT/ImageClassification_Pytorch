@@ -9,9 +9,10 @@ and the original author has done a very good job.
 On this basis, I added the functions of training custom datasets and adapting custom networks, 
 and added the test code and visualized results to fix the bugs of the original evaluation code.**
 
-<center class = "half">
-<img src = figures/confusion_matrix.png  height = 300><img src = figures/roc_curve.png  height = 300 >
-</center>
+<figure class="half">
+    <img src="figures/confusion_matrix.png" height="300">
+    <img src="figures/roc_curve.png" height="300">
+</figure>
 
 ## <div align="center">How to install this repository ?</div>
 
