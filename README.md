@@ -10,8 +10,7 @@ On this basis, I added the functions of training custom datasets and adapting cu
 and added the test code and visualized results to fix the bugs of the original evaluation code.**
 
 <figure class="half">
-    <img src="figures/confusion_matrix.png" height="300">
-    <img src="figures/roc_curve.png" height="300">
+    <img src="figures/confusion_matrix.png" height="300"><img src="figures/roc_curve.png" height="300">
 </figure>
 
 ## <div align="center">How to install this repository ?</div>
