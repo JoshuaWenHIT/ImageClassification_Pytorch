@@ -1,10 +1,10 @@
 device: cuda
 dataset:
-  name: RSSCN7
-  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/RSSCN7
-  image_size: 400
+  name: RSI-CB256
+  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/RSI-CB256
+  image_size: 256
   n_channels: 3
-  n_classes: 7
+  n_classes: 35
 model:
   type: custom
   name: vgg
@@ -40,9 +40,9 @@ validation:
     drop_last: False
     pin_memory: True
 test:
-  output_dir: /home/joshuawen/Downloads/Google-China/vgg16/exp08/checkpoint/
-  checkpoint: /home/joshuawen/Downloads/RSSCN7/vgg16/exp00/checkpoint_00120.pth
-  batch_size: 16
+  output_dir: /media/joshuawen/Joshua_SSD3/Exp/Classification/RSI-CB256/vgg16/exp00
+  checkpoint: /media/joshuawen/Joshua_SSD3/Exp/Classification/RSI-CB256/vgg16/exp00/checkpoint_00120.pth
+  batch_size: 4
 scheduler:
   epochs: 90
   type: multistep

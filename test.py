@@ -121,7 +121,7 @@ def main():
     model.load_state_dict(checkpoint['model'])
     test_transform = create_transform(config, is_train=False)
     test_dataset = torchvision.datasets.ImageFolder(
-        config.dataset.dataset_dir + '/train',
+        config.dataset.dataset_dir + '/val',
         transform=test_transform)
     print(test_dataset.class_to_idx)
 

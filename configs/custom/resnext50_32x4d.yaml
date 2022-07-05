@@ -1,10 +1,10 @@
 device: cuda
 dataset:
-  name: Google-China
-  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/Google-China
-  image_size: 200
+  name: RSI-CB256
+  dataset_dir: /media/joshuawen/Joshua_SSD3/Datasets/RGB/classification/RSI-CB256
+  image_size: 256
   n_channels: 3
-  n_classes: 12
+  n_classes: 35
 model:
   type: custom
   name: resnext
@@ -41,9 +41,9 @@ validation:
     drop_last: False
     pin_memory: True
 test:
-  output_dir: /home/joshuawen/Downloads/Google-China/resnet34/exp00
-  checkpoint: /home/joshuawen/Downloads/Google-China/resnext50_32x4d/exp00/checkpoint_00120.pth
-  batch_size: 128
+  output_dir: /media/joshuawen/Joshua_SSD3/Exp/Classification/RSI-CB256/resnext50_32x4d/exp00
+  checkpoint: /media/joshuawen/Joshua_SSD3/Exp/Classification/RSI-CB256/resnext50_32x4d/exp00/checkpoint_00120.pth
+  batch_size: 4
 scheduler:
   epochs: 120
   type: multistep
