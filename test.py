@@ -17,7 +17,7 @@ import torchvision
 import tqdm
 
 
-from pytorch_image_classification import (
+from lib import (
     apply_data_parallel_wrapper,
     create_loss,
     create_model,
@@ -25,7 +25,7 @@ from pytorch_image_classification import (
     update_config,
     create_transform,
 )
-from pytorch_image_classification.utils import (
+from lib.utils import (
     AverageMeter,
     create_logger,
     get_rank,

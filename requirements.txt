@@ -1,13 +1,12 @@
 numpy~=1.22.3
-torch>=1.4.0
-torchvision~=0.11.2
+# torch>=1.4.0
+# torchvision~=0.11.2
 fvcore~=0.1.5.post20220512
 tqdm~=4.64.0
 yacs~=0.1.8
-git+https://github.com/NVIDIA/apex.git@02a33875970e1b555754dfc4ab85d05595d23764#egg=apex
+# git+https://github.com/NVIDIA/apex.git@02a33875970e1b555754dfc4ab85d05595d23764#egg=apex
 termcolor~=1.1.0
 thop==0.0.31.post2001170342
-
 opencv-python~=4.5.5.64
 tensorboard~=1.15.0
 pillow~=9.1.1

@@ -11,7 +11,7 @@ import tqdm
 
 from fvcore.common.checkpoint import Checkpointer
 
-from pytorch_image_classification import (
+from lib import (
     apply_data_parallel_wrapper,
     create_dataloader,
     create_loss,
@@ -19,7 +19,7 @@ from pytorch_image_classification import (
     get_default_config,
     update_config,
 )
-from pytorch_image_classification.utils import (
+from lib.utils import (
     AverageMeter,
     create_logger,
     get_rank,

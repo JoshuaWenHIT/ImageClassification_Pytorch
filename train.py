@@ -16,7 +16,7 @@ import torchvision
 
 from fvcore.common.checkpoint import Checkpointer
 
-from pytorch_image_classification import (
+from lib import (
     apply_data_parallel_wrapper,
     create_dataloader,
     create_loss,
@@ -26,8 +26,8 @@ from pytorch_image_classification import (
     get_default_config,
     update_config,
 )
-from pytorch_image_classification.config.config_node import ConfigNode
-from pytorch_image_classification.utils import (
+from lib.config.config_node import ConfigNode
+from lib.utils import (
     AverageMeter,
     DummyWriter,
     compute_accuracy,

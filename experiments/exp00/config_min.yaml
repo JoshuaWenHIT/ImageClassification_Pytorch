@@ -1,0 +1,2 @@
+dataset:
+  dataset_dir: ~/.torch/datasets/CIFAR10
