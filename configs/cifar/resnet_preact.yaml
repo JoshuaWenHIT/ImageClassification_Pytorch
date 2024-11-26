@@ -22,7 +22,7 @@ train:
   momentum: 0.9
   nesterov: True
   weight_decay: 1e-4
-  output_dir: experiments/cifar10/resnet_preact/exp00
+  output_dir: experiments/exp00
   log_period: 100
   checkpoint_period: 100
   val_ratio: 0.0
@@ -44,6 +44,10 @@ scheduler:
   type: multistep
   milestones: [80, 120]
   lr_decay: 0.1
+test:
+  output_dir: experiments/exp00
+  checkpoint: experiments/exp00/checkpoint_00160.pth
+  batch_size: 4
 augmentation:
   use_random_crop: True
   use_random_horizontal_flip: True

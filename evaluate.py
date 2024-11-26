@@ -23,6 +23,7 @@ from lib.utils import (
     AverageMeter,
     create_logger,
     get_rank,
+    SklearnTools,
 )
 
 
@@ -52,6 +53,7 @@ def evaluate(config, model, test_loader, loss_func, logger):
     pred_raw_all = []
     pred_prob_all = []
     pred_label_all = []
+    gt_labels = []
     with torch.no_grad():
         for data, targets in tqdm.tqdm(test_loader):
             data = data.to(device)
@@ -65,6 +67,8 @@ def evaluate(config, model, test_loader, loss_func, logger):
 
             _, preds = torch.max(outputs, dim=1)
             pred_label_all.append(preds.cpu().numpy())
+
+            gt_labels.append(targets.cpu().numpy())
 
             loss_ = loss.item()
             correct_ = preds.eq(targets).sum().item()
@@ -82,6 +86,14 @@ def evaluate(config, model, test_loader, loss_func, logger):
     preds = np.concatenate(pred_raw_all)
     probs = np.concatenate(pred_prob_all)
     labels = np.concatenate(pred_label_all)
+
+    predicted_labels = np.concatenate(pred_label_all)
+    gt_labels = np.concatenate(gt_labels)
+
+    tools = SklearnTools(test_loader.dataset, gt_labels, predicted_labels)
+    tools.plot_confusion_matrix(config)
+    tools.plot_roc_curve(config, probs)
+    logger.info(tools.get_classification_report(config))
     return preds, probs, labels, loss_meter.avg, accuracy
 
 
@@ -98,12 +110,13 @@ def main():
 
     model = create_model(config)
     model = apply_data_parallel_wrapper(config, model)
-    checkpointer = Checkpointer(model,
-                                checkpoint_dir=output_dir,
-                                logger=logger,
-                                distributed_rank=get_rank())
-    checkpointer.load(config.test.checkpoint)
-
+    # checkpointer = Checkpointer(model,
+    #                             checkpoint_dir=output_dir,
+    #                             logger=logger,
+    #                             distributed_rank=get_rank())
+    # checkpointer.load(config.test.checkpoint)
+    checkpoint = torch.load(config.test.checkpoint)
+    model.load_state_dict(checkpoint['model'])
     test_loader = create_dataloader(config, is_train=False)
     _, test_loss = create_loss(config)
 
